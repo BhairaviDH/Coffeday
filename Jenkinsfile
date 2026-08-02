@@ -30,7 +30,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
                         sh "docker tag coffeeday dadda5/coffeeday:${BUILD_NUMBER}"
-                        sh "docker push dadda5/coffeday:${BUILD_NUMBER}"
+                        sh "docker push dadda5/coffeeday:${BUILD_NUMBER}"
                     }
                 }
             }
@@ -50,7 +50,7 @@ pipeline {
                 kubectl set image deployment/coffeeday-deployment \
                 coffeeday=dadda5/coffeeday:${BUILD_NUMBER}
 
-                kubectl rollout status deployment/coffeday-deployment
+                kubectl rollout status deployment/coffeeday-deployment
             """
         }
     }
