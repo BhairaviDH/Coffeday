@@ -49,6 +49,8 @@ pipeline {
 
                 kubectl set image deployment/starbucks-deployment \
                 starbucks=dadda5/starbucks:${BUILD_NUMBER}
+
+                kubectl rollout status deployment/starbucks-deployment
             """
         }
     }
