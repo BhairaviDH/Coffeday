@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: starbucks-deployment
+  name: coffeeday-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: starbucks
+      app: coffeeday
   template:
     metadata:
       labels:
-        app: starbucks
+        app: coffeeday
     spec:
       containers:
-      - name: starbucks
-        image: dadda5/starbucks:latest
+      - name: coffeeday
+        image: dadda5/coffeeday
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
