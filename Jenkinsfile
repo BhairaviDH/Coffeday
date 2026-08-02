@@ -12,7 +12,7 @@ pipeline {
         }
         stage ("Git Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/tpp-tpp/Starbucks-Application.git'
+                git branch: 'main', url: 'https://github.com/BhairaviDH/Coffeday.git'
             }
         }
         stage("Install NPM Dependencies") {
@@ -22,15 +22,15 @@ pipeline {
         }
         stage("Build Docker Image") {
             steps {
-                sh "docker build -t starbucks ."
+                sh "docker build -t coffeeday ."
             }
         }
         stage("Tag & Push to DockerHub") {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
-                        sh "docker tag starbucks dadda5/starbucks:${BUILD_NUMBER}"
-                        sh "docker push dadda5/starbucks:${BUILD_NUMBER}"
+                        sh "docker tag coffeeday dadda5/coffeeday:${BUILD_NUMBER}"
+                        sh "docker push dadda5/coffeday:${BUILD_NUMBER}"
                     }
                 }
             }
@@ -47,10 +47,10 @@ pipeline {
 
                 kubectl apply -f k8s/
 
-                kubectl set image deployment/starbucks-deployment \
-                starbucks=dadda5/starbucks:${BUILD_NUMBER}
+                kubectl set image deployment/coffeeday-deployment \
+                coffeeday=dadda5/coffeeday:${BUILD_NUMBER}
 
-                kubectl rollout status deployment/starbucks-deployment
+                kubectl rollout status deployment/coffeday-deployment
             """
         }
     }
