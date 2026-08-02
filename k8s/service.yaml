@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: starbucks-service
+  name: coffeeday-service
 spec:
   selector:
-    app: starbucks
+    app: coffeeday
   ports:
     - protocol: TCP
       port: 80
