@@ -43,7 +43,7 @@ pipeline {
 
                 gcloud config set project planar-momentum-500811-e0
 
-                gcloud container clusters get-credentials clusterstarbut --region us-east1
+                gcloud container clusters get-credentials coffeday --region us-east1 --project planar-momentum-500811-e0
 
                 kubectl apply -f k8s/
 
