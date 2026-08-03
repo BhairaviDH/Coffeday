@@ -29,8 +29,11 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
-                        sh "docker tag coffeeday dadda5/coffeeday:${BUILD_NUMBER}"
-                        sh "docker push dadda5/coffeeday:${BUILD_NUMBER}"
+                        sh "docker tag coffeeday dadda5/coffeday:${BUILD_NUMBER}"
+sh "docker push dadda5/coffeday:${BUILD_NUMBER}"
+
+sh "docker tag coffeeday dadda5/coffeday:latest"
+sh "docker push dadda5/coffeday:latest"
                     }
                 }
             }
