@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: coffeeday
-        image: dadda5/coffday:19
+        image: dadda5/coffday:20
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
