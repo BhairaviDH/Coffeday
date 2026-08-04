@@ -38,21 +38,10 @@ sh "docker push dadda5/coffday:latest"
                 }
             }
         }
-        stage('Deploy to GKE') {
-    steps {
-        withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_KEY')]) {
-            sh """
-                gcloud auth activate-service-account --key-file=$GOOGLE_KEY
-
-                gcloud config set project planar-momentum-500811-e0
-
-                gcloud container clusters get-credentials coffeedaycluster --region us-central1 --project planar-momentum-500811-e0
+      
 
                
-            """
-        }
-    }
-}
+  
         
 }
 }
