@@ -37,6 +37,22 @@ sh "docker push dadda5/coffday:latest"
 sh """
 sed -i 's|image: .*|image: dadda5/coffday:${BUILD_NUMBER}|' k8s/deployment.yaml
 """
+sh 'git config --global user.name "Jenkins"'
+sh 'git config --global user.email "jenkins@local"'
+
+sh "git add k8s/deployment.yaml"
+sh "git commit -m 'Update image to ${BUILD_NUMBER}' || true"
+
+withCredentials([usernamePassword(
+    credentialsId: 'github',
+    usernameVariable: 'GIT_USER',
+    passwordVariable: 'GIT_TOKEN'
+)]) {
+    sh """
+    git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/BhairaviDH/Coffeday.git
+    git push origin HEAD:main
+    """
+}
                     }
                 }
             }
