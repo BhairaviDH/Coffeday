@@ -50,10 +50,10 @@ sh "docker push dadda5/coffday:latest"
 
                 kubectl apply -f k8s/
 
-                kubectl set image deployment/coffday-deployment \
-                coffday=dadda5/coffday:${BUILD_NUMBER}
+                kubectl set image deployment/coffeday-deployment \
+                coffeeday=dadda5/coffday:${BUILD_NUMBER}
 
-                kubectl rollout status deployment/coffday-deployment
+                kubectl rollout status deployment/coffeday-deployment
             """
         }
     }
