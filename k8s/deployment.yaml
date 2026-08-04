@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coffeeday-deployment
+  name: coffeday-deployment
 spec:
   replicas: 2
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: coffeeday
-        image: dadda5/coffeeday
+        image: dadda5/coffday
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
