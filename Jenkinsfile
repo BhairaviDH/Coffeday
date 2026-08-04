@@ -34,6 +34,9 @@ sh "docker push dadda5/coffday:${BUILD_NUMBER}"
 
 sh "docker tag coffday dadda5/coffday:latest"
 sh "docker push dadda5/coffday:latest"
+sh """
+sed -i 's|image: .*|image: dadda5/coffday:${BUILD_NUMBER}|' k8s/deployment.yaml
+"""
                     }
                 }
             }
