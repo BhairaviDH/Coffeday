@@ -48,12 +48,7 @@ sh "docker push dadda5/coffday:latest"
 
                 gcloud container clusters get-credentials coffeedaycluster --region us-central1 --project planar-momentum-500811-e0
 
-                kubectl apply -f k8s/
-
-                kubectl set image deployment/coffeday-deployment \
-                coffeeday=dadda5/coffday:${BUILD_NUMBER}
-
-                kubectl rollout status deployment/coffeday-deployment
+               
             """
         }
     }
