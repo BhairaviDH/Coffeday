@@ -44,32 +44,32 @@ pipeline {
 
                         sh "docker tag coffday dadda5/coffday:latest"
                         sh "docker push dadda5/coffday:latest"
+                    }
 
-                        // Update Kubernetes deployment image
+                    withCredentials([usernamePassword(
+                        credentialsId: 'github',
+                        usernameVariable: 'GIT_USER',
+                        passwordVariable: 'GIT_TOKEN'
+                    )]) {
+
                         sh """
-                        sed -i 's|image: .*|image: dadda5/coffday:${BUILD_NUMBER}|' k8s/deployment.yaml
+                        rm -rf coffeday-manifests
+
+                        git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/BhairaviDH/coffeday-manifests.git
+
+                        sed -i 's|image: .*|image: dadda5/coffday:${BUILD_NUMBER}|' coffeday-manifests/k8s/deployment.yaml
+
+                        cd coffeday-manifests
+
+                        git config user.name "Jenkins"
+                        git config user.email "jenkins@local"
+
+                        git add k8s/deployment.yaml
+
+                        git commit -m "Update image to ${BUILD_NUMBER}" || true
+
+                        git push origin main
                         """
-
-                        // Git configuration
-                        sh 'git config --global user.name "Jenkins"'
-                        sh 'git config --global user.email "jenkins@local"'
-
-                        // Commit updated deployment file
-                        sh "git add k8s/deployment.yaml"
-                        sh "git commit -m 'Update image to ${BUILD_NUMBER}' || true"
-
-                        // Push using GitHub credentials
-                        withCredentials([usernamePassword(
-                            credentialsId: 'github',
-                            usernameVariable: 'GIT_USER',
-                            passwordVariable: 'GIT_TOKEN'
-                        )]) {
-
-                            sh """
-                            git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/BhairaviDH/Coffeday.git
-                            git push origin HEAD:main
-                            """
-                        }
                     }
                 }
             }
